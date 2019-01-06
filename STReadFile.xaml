@@ -71,7 +71,7 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="Read file" sap2010:WorkflowViewState.IdRef="Sequence_2">
-    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[fileName]">
+    <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" CreateNewFile="False" DisplayName="Excel Application Scope" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" Visible="False" WorkbookPath="[fileName]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
@@ -89,7 +89,7 @@
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
-    <sads:DebugSymbol.Symbol>d0pDOlxVc2Vyc1xrb2xvc1xPbmVEcml2ZVzQlNC+0LrRg9C80LXQvdGC0YtcVWlQYXRoXFB1cmNoYXNlXFNUUmVhZEZpbGUueGFtbAhJA10OAgEBSgVbIAIBAkqgAUqsAQIBCVALWBYCAQNRDVchAgEEUTxRQgIBB1QTVEICAQZRmQFRpAECAQU=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>dzZcXG1hY1xIb21lXERvY3VtZW50c1xVaVBhdGhcUFdDLUFyYml0clxTVFJlYWRGaWxlLnhhbWwISQNdDgIBAUoFWyACAQJK1wFK4wECAQlQC1gWAgEDUQ1XIQIBBFE8UUICAQdUE1RCAgEGUZkBUaQBAgEF</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

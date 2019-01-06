@@ -55,25 +55,23 @@
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="ACloseBrowserWindows" sap2010:WorkflowViewState.IdRef="Sequence_2">
-    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Browser Window" Selector="&lt;wnd app='iexplore.exe' cls='IEFrame' /&gt;">
+    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" ContinueOnError="True" DisplayName="Attach Browser Window" sap2010:WorkflowViewState.IdRef="WindowScope_1" Selector="&lt;wnd app='iexplore.exe' cls='IEFrame' /&gt;">
       <ui:WindowScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do">
+          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <ui:CloseApplication DisplayName="Close Browser" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
               <ui:CloseApplication.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
               </ui:CloseApplication.Target>
             </ui:CloseApplication>
-            <sap2010:WorkflowViewState.IdRef>Sequence_3</sap2010:WorkflowViewState.IdRef>
           </Sequence>
         </ActivityAction>
       </ui:WindowScope.Body>
-      <sap2010:WorkflowViewState.IdRef>WindowScope_1</sap2010:WorkflowViewState.IdRef>
     </ui:WindowScope>
-    <sads:DebugSymbol.Symbol>d1JDOlxVc2Vyc1xrb2xvc1xPbmVEcml2ZVzQlNC+0LrRg9C80LXQvdGC0YtcVWlQYXRoXEFyYml0clxBQ2xvc2VCcm93c2VyV2luZG93cy54YW1sBTkDTQ4CAQE6BUsWAgECOp0BOs0BAgEFQAtHFgIBA0ENRSMCAQQ=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0BcXE1hY1xIb21lXERvY3VtZW50c1xVaVBhdGhcUFdDLUFyYml0clxBQ2xvc2VCcm93c2VyV2luZG93cy54YW1sBjkDSw4CAQE6BUkWAgECOuQBOpQCAgEGOoABOoYBAgEFQAtGFgIBA0ENRSMCAQQ=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
