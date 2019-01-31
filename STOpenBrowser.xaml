@@ -18,6 +18,7 @@
     <x:Property Name="urlDatatable" Type="InArgument(sd:DataTable)" />
     <x:Property Name="inputFile" Type="InArgument(x:String)" />
     <x:Property Name="range" Type="InArgument(x:String)" />
+    <x:Property Name="resultFolder" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -97,11 +98,6 @@
               <Variable x:TypeArguments="sd:DataTable" Name="finalOutTable" />
               <Variable x:TypeArguments="sd:DataColumn" Name="statusColumn" />
               <Variable x:TypeArguments="x:String" Default="result.xlsx" Name="resultFile" />
-              <Variable x:TypeArguments="x:String" Name="resultFolder">
-                <Variable.Default>
-                  <Literal x:TypeArguments="x:String" Value="" />
-                </Variable.Default>
-              </Variable>
             </Sequence.Variables>
             <ui:BuildDataTable DataTable="[finalOutTable]" DisplayName="Build Data Table" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Название_x0020_компании&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ИНН&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;20&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Начало_x0020_периода&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;1000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Окончание_x0020_периода&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;1000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Ссылка&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;1000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Статус&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
             <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[dataTable]" DisplayName="For each row" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
@@ -312,8 +308,6 @@
               </InvokeMethod.TargetObject>
               <InArgument x:TypeArguments="x:Int32">0</InArgument>
             </InvokeMethod>
-            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" Buttons="Ok" DisplayName="Message Box" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="Пожалуйста, выберите папку для сохранения результата" TopMost="True" />
-            <ui:SelectFolder DisplayName="Select Folder" sap2010:WorkflowViewState.IdRef="SelectFolder_1" SelectedFolder="[resultFolder]" />
             <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Write Results" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[resultFolder + &quot;/&quot; + resultFile]">
               <ui:ExcelApplicationScope.Body>
                 <ActivityAction x:TypeArguments="ui:WorkbookApplication">
@@ -403,7 +397,7 @@
         </ActivityAction>
       </ui:OpenBrowser.Body>
     </ui:OpenBrowser>
-    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -511,8 +505,6 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="InvokeMethod_1" sap:VirtualizedContainerService.HintSize="314,134" />
-      <sap2010:ViewStateData Id="MessageBox_1" sap:VirtualizedContainerService.HintSize="314,59" />
-      <sap2010:ViewStateData Id="SelectFolder_1" sap:VirtualizedContainerService.HintSize="314,22" />
       <sap2010:ViewStateData Id="ExcelWriteRange_1" sap:VirtualizedContainerService.HintSize="314,87" />
       <sap2010:ViewStateData Id="Sequence_27" sap:VirtualizedContainerService.HintSize="336,211">
         <sap:WorkflowViewStateService.ViewState>
@@ -536,7 +528,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_9" sap:VirtualizedContainerService.HintSize="322,60" />
+      <sap2010:ViewStateData Id="Assign_9" sap:VirtualizedContainerService.HintSize="366,60" />
       <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="248,60" />
       <sap2010:ViewStateData Id="ExcelSetRangeColor_1" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="ExcelSetRangeColor_2" sap:VirtualizedContainerService.HintSize="200,22" />
@@ -572,21 +564,21 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_49" sap:VirtualizedContainerService.HintSize="270,176">
+      <sap2010:ViewStateData Id="Sequence_49" sap:VirtualizedContainerService.HintSize="314,624">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_50" sap:VirtualizedContainerService.HintSize="292,300">
+      <sap2010:ViewStateData Id="Sequence_50" sap:VirtualizedContainerService.HintSize="336,748">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEachRow_6" sap:VirtualizedContainerService.HintSize="322,448" />
+      <sap2010:ViewStateData Id="ForEachRow_6" sap:VirtualizedContainerService.HintSize="366,896" />
       <sap2010:ViewStateData Id="Sequence_40" sap:VirtualizedContainerService.HintSize="344,672">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -594,7 +586,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="414,781">
+      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="314,52">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -604,22 +596,22 @@
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="StartProcess_1" sap:VirtualizedContainerService.HintSize="314,87" />
       <sap2010:ViewStateData Id="MessageBox_2" sap:VirtualizedContainerService.HintSize="314,59" />
-      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="336,1020">
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="336,859">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="OpenBrowser_2" sap:VirtualizedContainerService.HintSize="414,1119" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="436,1243">
+      <sap2010:ViewStateData Id="OpenBrowser_2" sap:VirtualizedContainerService.HintSize="414,958" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="436,1082">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="STOpenBrowser_1" sap:VirtualizedContainerService.HintSize="476,1323">
+      <sap2010:ViewStateData Id="STOpenBrowser_1" sap:VirtualizedContainerService.HintSize="476,1162">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
