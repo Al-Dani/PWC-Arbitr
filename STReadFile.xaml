@@ -13,6 +13,7 @@
   <x:Members>
     <x:Property Name="fileName" Type="InOutArgument(x:String)" />
     <x:Property Name="DT" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="resultFolder" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -81,46 +82,57 @@
           </ActivityAction.Argument>
           <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_1">
-              <ui:ExcelReadRange AddHeaders="True" DataTable="[DT]" DisplayName="Read Range" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="Параметры">
-                <ui:ExcelReadRange.Range>
-                  <InArgument x:TypeArguments="x:String">
-                    <Literal x:TypeArguments="x:String" Value="" />
-                  </InArgument>
-                </ui:ExcelReadRange.Range>
-              </ui:ExcelReadRange>
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="tablerange" />
+                <Variable x:TypeArguments="sd:DataTable" Name="lHeaderDataTable" />
+              </Sequence.Variables>
+              <ui:ExcelGetTableRange DisplayName="Get Table Range" sap2010:WorkflowViewState.IdRef="ExcelGetTableRange_1" IsPivot="False" Range="[tablerange]" SheetName="Параметры" TableName="inputTable" />
+              <ui:ExcelReadRange AddHeaders="True" DataTable="[DT]" DisplayName="Read Range Конфиг" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" Range="[tablerange]" SheetName="Параметры" />
+              <ui:ExcelReadRange AddHeaders="False" DataTable="[lHeaderDataTable]" DisplayName="Read Range Параметры" sap2010:WorkflowViewState.IdRef="ExcelReadRange_2" Range="A2:B2" SheetName="Параметры" />
+              <Assign DisplayName="Assign Login" sap2010:WorkflowViewState.IdRef="Assign_1">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[resultFolder]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[lHeaderDataTable.Rows(0)(1).ToString]</InArgument>
+                </Assign.Value>
+              </Assign>
             </Sequence>
           </Sequence>
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
-    <sads:DebugSymbol.Symbol>dyZEOlw0X3llYXJccHdjXGFydGJ0ci0zXFNUUmVhZEZpbGUueGFtbAlLA2EOAgEBTAVfIAIBAkzXAUzjAQIBClILXBYCAQNTDVsYAgEEVA9aIwIBBVQ+VEQCAQhXFVdEAgEHVJsBVKYBAgEG</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>dzZcXG1hY1xIb21lXERvY3VtZW50c1xVaVBhdGhcUFdDLUFyYml0clxTVFJlYWRGaWxlLnhhbWwUTANqDgIBAU0FaCACAQJN1wFN4wECARlTC2UWAgEDVA1kGAIBBFkPWc8BAgEUWg9axQECAQ5bD1vQAQIBCVwPYxgCAQVZkQFZnwECARdZwAFZzAECARZZqgFZtQECARVaPlpEAgESWp4BWqwBAgEQWrcBWsIBAgEPWz9bUwIBDFuwAVu3AQIBC1vCAVvNAQIBCmE6YWACAQheO15JAgEG</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="ExcelReadRange_1" sap:VirtualizedContainerService.HintSize="314.4,60" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336.8,184.8">
+      <sap2010:ViewStateData Id="ExcelGetTableRange_1" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadRange_1" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadRange_2" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,481">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="359.2,309.6">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="358,605">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="414.4,419.2" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="436.8,544">
+      <sap2010:ViewStateData Id="ExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="414,714" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="436,838">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Read_file_1" sap:VirtualizedContainerService.HintSize="476.8,624" />
+      <sap2010:ViewStateData Id="Read_file_1" sap:VirtualizedContainerService.HintSize="476,918" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
