@@ -250,29 +250,15 @@
                                 <Sequence DisplayName="Аудиторы вводят капчу" sap2010:WorkflowViewState.IdRef="Sequence_60">
                                   <ui:MessageBox ChosenButton="{x:Null}" Buttons="Ok" Caption="Ввод капчи" DisplayName="Message Box" sap2010:WorkflowViewState.IdRef="MessageBox_4" Text="Введите капчу и затем нажмите на кнопку 'ОК'&#xA;Не закрывайте диалоговое окно, пока не подтвердите ввод капчи" TopMost="True" />
                                   <Delay DisplayName="Ждем ввода" Duration="00:00:10" sap2010:WorkflowViewState.IdRef="Delay_2" />
+                                  <ui:MessageBox ChosenButton="{x:Null}" Buttons="Ok" Caption="Время отдохнуть" DisplayName="Message Box" sap2010:WorkflowViewState.IdRef="MessageBox_5" Text="Из-за слишком большого количества запросов к сайту у вас временно нет доступа к данному сервису.&#xA;Пожалуйста, остановите робота и начните поиск заново через несколько часов" TopMost="True" />
                                 </Sequence>
                               </If.Then>
                             </If>
-                            <TryCatch DisplayName="Try Catch" sap2010:WorkflowViewState.IdRef="TryCatch_1">
-                              <TryCatch.Try>
-                                <ui:ExtractData ContinueOnError="False" DataTable="[urlDataTable]" DelayBetweenPagesMS="300" DisplayName="Extract Structured Data 'TBODY'" ExtractMetadata="&lt;extract&gt;&lt;column name='url' attr='href' exact='1'&gt;&lt;webctrl tag='tr' /&gt;&lt;webctrl class='num' tag='td' idx='1' /&gt;&lt;webctrl class='b-container' tag='div' idx='1' /&gt;&lt;webctrl class='num_case' tag='a' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap2010:WorkflowViewState.IdRef="ExtractData_2" MaxNumberOfResults="100" NextLinkSelector="&lt;webctrl aaname='2' parentid='pages' tag='A' /&gt;">
-                                  <ui:ExtractData.Target>
-                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="941772c1e9fa507913124858fcda62fd" Selector="&lt;webctrl parentid='b-cases' tag='TBODY' /&gt;" WaitForReady="COMPLETE" />
-                                  </ui:ExtractData.Target>
-                                </ui:ExtractData>
-                              </TryCatch.Try>
-                              <TryCatch.Catches>
-                                <Catch x:TypeArguments="ui:SelectorNotFoundException">
-                                  <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
-                                    <ActivityAction.Argument>
-                                      <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
-                                    </ActivityAction.Argument>
-                                    <ui:MessageBox ChosenButton="{x:Null}" Buttons="Ok" Caption="Время отдохнуть" DisplayName="Message Box" sap2010:WorkflowViewState.IdRef="MessageBox_5" Text="Из-за слишком большого количества запросов к сайту у вас временно нет доступа к данному сервису.&#xA;Пожалуйста, остановите робота и начните поиск заново через несколько часов" TopMost="True" />
-                                  </ActivityAction>
-                                  <sap2010:WorkflowViewState.IdRef>Catch`1_8</sap2010:WorkflowViewState.IdRef>
-                                </Catch>
-                              </TryCatch.Catches>
-                            </TryCatch>
+                            <ui:ExtractData ContinueOnError="True" DataTable="[urlDataTable]" DelayBetweenPagesMS="300" DisplayName="Extract Structured Data 'TBODY'" ExtractMetadata="&lt;extract&gt;&lt;column name='url' attr='href' exact='1'&gt;&lt;webctrl tag='tr' /&gt;&lt;webctrl class='num' tag='td' idx='1' /&gt;&lt;webctrl class='b-container' tag='div' idx='1' /&gt;&lt;webctrl class='num_case' tag='a' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap2010:WorkflowViewState.IdRef="ExtractData_2" MaxNumberOfResults="100" NextLinkSelector="&lt;webctrl aaname='2' parentid='pages' tag='A' /&gt;">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="941772c1e9fa507913124858fcda62fd" Selector="&lt;webctrl parentid='b-cases' tag='TBODY' /&gt;" WaitForReady="COMPLETE" />
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
                           </Sequence>
                           <If Condition="[rowCounter=2]" sap2010:WorkflowViewState.IdRef="If_2">
                             <If.Then>
@@ -487,7 +473,7 @@
       <ui:StartProcess Arguments="{x:Null}" WorkingDirectory="{x:Null}" DisplayName="Start Process" FileName="[resultFolder + &quot;/&quot; + resultFile]" sap2010:WorkflowViewState.IdRef="StartProcess_1" />
       <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" Buttons="Ok" DisplayName="Message Box" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="Обработка успешно завершена" TopMost="True" />
     </Sequence>
-    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -542,26 +528,17 @@
       <sap2010:ViewStateData Id="Assign_20" sap:VirtualizedContainerService.HintSize="525.5,60" />
       <sap2010:ViewStateData Id="MessageBox_4" sap:VirtualizedContainerService.HintSize="314,59" />
       <sap2010:ViewStateData Id="Delay_2" sap:VirtualizedContainerService.HintSize="314,22" />
-      <sap2010:ViewStateData Id="Sequence_60" sap:VirtualizedContainerService.HintSize="336,245">
+      <sap2010:ViewStateData Id="MessageBox_5" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="Sequence_60" sap:VirtualizedContainerService.HintSize="336,344">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_15" sap:VirtualizedContainerService.HintSize="525.5,395" />
-      <sap2010:ViewStateData Id="ExtractData_2" sap:VirtualizedContainerService.HintSize="314,106" />
-      <sap2010:ViewStateData Id="MessageBox_5" sap:VirtualizedContainerService.HintSize="314,59" />
-      <sap2010:ViewStateData Id="Catch`1_8" sap:VirtualizedContainerService.HintSize="404,129">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="525.5,549" />
-      <sap2010:ViewStateData Id="Sequence_59" sap:VirtualizedContainerService.HintSize="675.5,1500">
+      <sap2010:ViewStateData Id="If_15" sap:VirtualizedContainerService.HintSize="525.5,494" />
+      <sap2010:ViewStateData Id="ExtractData_2" sap:VirtualizedContainerService.HintSize="525.5,106" />
+      <sap2010:ViewStateData Id="Sequence_59" sap:VirtualizedContainerService.HintSize="675.5,1156">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -610,14 +587,14 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="ForEachRow_5" sap:VirtualizedContainerService.HintSize="675.5,295" />
-      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="697.5,6241">
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="697.5,5897">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEachRow_2" sap:VirtualizedContainerService.HintSize="727.5,6390">
+      <sap2010:ViewStateData Id="ForEachRow_2" sap:VirtualizedContainerService.HintSize="727.5,6046">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -691,7 +668,7 @@
       <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="248,60" />
       <sap2010:ViewStateData Id="ExcelSetRangeColor_1" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="ExcelSetRangeColor_3" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_8" sap:VirtualizedContainerService.HintSize="248,52">
+      <sap2010:ViewStateData Id="If_8" sap:VirtualizedContainerService.HintSize="464,210">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
